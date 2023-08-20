@@ -1,6 +1,6 @@
 # About App
 
-Xpress is an app that handles auth and dashboard. [Demo](https://xpress.netlify.app/)
+Xpress is an app that handles auth and dashboard. [Demo](https://xpress-fd.netlify.app)
 
 ## Built With
 

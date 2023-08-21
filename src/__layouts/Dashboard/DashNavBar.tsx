@@ -1,79 +1,40 @@
-// import Logo from '@/components/shared/Logo';
-// import {
-//   StyledButton,
-//   StyledDiv,
-//   StyledFlex,
-// } from '@/components/__style/ui-block.style';
-// import { CartIcon } from 'constants/svgs';
-// import { useDispatch, useSelector } from 'react-redux';
-// import styled from 'styled-components';
-// import SearchIcon from '../../../public/assets/images/search.svg';
-// import { Dispatch, RootState } from '../../../redux/store';
-
-// const DashNavBar = () => {
-//   // HANDLE CART TOGGLE
-//   const dispatch = useDispatch<Dispatch>();
-//   const handleCartTogle = () => {
-//     dispatch.cartModel.toggleCart();
-//   };
-//   // CART DATA
-//   const { cart } = useSelector((root: RootState) => root.cartModel);
-//   const isCartActive = cart && Object.values(cart).length === 0;
-
-//   return (
-//     <StyledHeader as="header" p="16.5px 32px">
-//       <StyledFlex justify="space-between" align="center" cg="30px">
-//         <Logo />
-//         <StyledFlex cg="20px">
-//           <StyledButton>
-//             <SearchIcon />
-//           </StyledButton>
-//           <StyledButton onClick={handleCartTogle}>
-//             <CartIcon isActive={!isCartActive} />
-//           </StyledButton>
-//         </StyledFlex>
-//       </StyledFlex>
-//     </StyledHeader>
-//   );
-// };
-
-// export default DashNavBar;
-
-// const StyledHeader = styled(StyledDiv)`
-//   position: -webkit-sticky;
-//   position: sticky;
-//   top: 0;
-//   z-index: 200;
-//   background: var(--white);
-//   border-bottom: 1px solid var(--border);
-//   @media only screen and (max-width: 375px) {
-//     padding: 13px 11px;
-//   }
-// `;
 import React, { ReactNode } from 'react';
-import { StyledFlex } from '../../components/__styles/ui-block.style';
-import { HeadingText } from '../../components/__styles/global.style';
+import {
+  StyledButton,
+  StyledFlex,
+} from '../../components/__styles/ui-block.style';
+import dropdownIcon from '../../assets/images/dropdown-icon.svg';
 import { styled } from 'styled-components';
+import ProfileImage from '../../components/shared/ProfileImage';
+import { NotificationIcon } from '../../components/__icons';
 
 const DashNavBar = ({ title }: { title: ReactNode }) => {
   return (
-    <StyledHeader $justify="space-between">
+    <StyledHeader $justify="space-between" $align="center">
       {title}
-      <HeadingText
-        $fsize="14px"
-        $lh="20px"
-        $fw="700"
-        $spacing="1px"
-        $color="var(--primary-text)"
-        $mb="30px"
-      ></HeadingText>
+      <StyledFlexCon $cg="16px" $align="center">
+        <StyledBtn>
+          <NotificationIcon isActive />
+        </StyledBtn>
+        <StyledBtn as="div" $cg="8px">
+          <ProfileImage name="Temi Adejumoke" />
+          <img src={dropdownIcon} alt="dropdown icon" />
+        </StyledBtn>
+      </StyledFlexCon>
     </StyledHeader>
   );
 };
 
 export default DashNavBar;
+const StyledFlexCon = styled(StyledFlex)``;
 const StyledHeader = styled(StyledFlex)`
   padding: 22px 32px;
   background: var(--white);
   flex-shrink: 0;
+`;
+const StyledBtn = styled(StyledButton)<{ $cg?: string }>`
+  display: flex;
+  column-gap: ${({ $cg }) => $cg};
+  align-content: center;
+  flex-wrap: wrap;
 `;

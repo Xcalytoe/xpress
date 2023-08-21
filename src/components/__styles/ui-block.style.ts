@@ -15,6 +15,7 @@ export const StyledUnderline = styled.div<{
 `;
 export const StyledDiv = styled.div<{
   $m?: string;
+  $textAlign?: string;
   $mt?: string;
   $mb?: string;
   $ml?: string;
@@ -25,6 +26,7 @@ export const StyledDiv = styled.div<{
   $pl?: string;
   $pr?: string;
 }>`
+  text-align: ${({ $textAlign }) => $textAlign};
   margin: ${({ $m }) => $m};
   margin-top: ${({ $mt }) => $mt};
   margin-bottom: ${({ $mb }) => $mb};

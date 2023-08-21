@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   DealsIcon,
+  LogoutIcon,
   TransactionsIcon,
   VerifiersIcon,
 } from '../components/__icons';
@@ -26,5 +27,12 @@ export const DASHBOARD_LINKS = [
     SLUG: 'transactions',
     PROTECTED: true,
     ICON: (isActive: boolean) => <TransactionsIcon isActive={isActive} />,
+  },
+  {
+    TITLE: 'Logout',
+    LINK: '/logout',
+    SLUG: 'logout',
+    PROTECTED: true,
+    ICON: () => <LogoutIcon />,
   },
 ];

@@ -3,8 +3,11 @@ import {
   StyledContainer,
   StyledFlex,
 } from '../components/__styles/ui-block.style';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useEffect } from 'react';
 import Logo from '../components/shared/Logo';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { useNavigate } from 'react-router-dom';
 
 const AuthLayout = ({
   children,
@@ -13,6 +16,19 @@ const AuthLayout = ({
   element: ReactNode;
   children: ReactElement;
 }) => {
+  //   Navigation hook
+  const navigate = useNavigate();
+
+  // Check auth status
+  const { token } = useSelector((root: RootState) => root.authModel);
+  useEffect(() => {
+    // Redirect to account if authenticated
+    if (typeof window !== 'undefined' && !!token) {
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
   return (
     <StyledMainCon>
       <StyledMain>

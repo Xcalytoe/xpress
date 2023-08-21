@@ -1,11 +1,8 @@
 import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-// import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-// import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { loginSchema } from '../../../validations/auth.schema';
-// import { Dispatch } from '../../../redux/store';
 import { HeadingText, ParagraphText } from '../../__styles/global.style';
 import FormInput from '../../shared/form/Input';
 import {
@@ -15,48 +12,32 @@ import {
   StyledUnderline,
 } from '../../__styles/ui-block.style';
 import PasswordInput from '../../shared/form/Password';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../../loaders/Spinner';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
-// import InputError from '../../shared/form/InputError';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, RootState } from '../../../redux/store';
 
 const LoginForm = () => {
+  // Navigation hook
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    // control,
     formState: { errors },
   } = useForm<any>({
     mode: 'all',
     resolver: yupResolver(loginSchema),
   });
 
-  // Check auth status
-  //   const { token } = useSelector((root: RootState) => root.authModel);
-  //   useEffect(() => {
-  //     // Redirect to account if authenticated
-  //     if (typeof window !== 'undefined' && !!token) {
-  //       if (fromQuery) {
-  //         router.push(`${fromQuery}`);
-  //       } else {
-  //         router.push('/shopper');
-  //       }
-  //     }
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, [token]);
-
-  //   const dispatch = useDispatch<Dispatch>();
+  const dispatch = useDispatch<Dispatch>();
   const isLoading = useSelector(
     (root: RootState) => root.loading.effects.authModel.login
   );
-
-  const onSubmit = async (data: any) => {
-    const { email, password } = data;
-    const username = email;
-    const formData = { username, password };
-    console.log(formData);
-    // dispatch.authModel.login(formData);
+  const onSubmit = async (data: { email: string; password: string }) => {
+    const res = await dispatch.authModel.login(data);
+    if (res) {
+      navigate('/');
+    }
   };
 
   return (

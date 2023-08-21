@@ -1,15 +1,18 @@
 import React from 'react';
 import Logo from '../../components/shared/Logo';
-import { StyledFlex } from '../../components/__styles/ui-block.style';
+import {
+  StyledButton,
+  StyledFlex,
+} from '../../components/__styles/ui-block.style';
 import { useLocation } from 'react-router-dom';
 import { DASHBOARD_LINKS } from '../../navigations';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ParagraphText } from '../../components/__styles/global.style';
+import { logout } from '../../helpers';
 
 const DashSideBar = () => {
   const { pathname } = useLocation();
-
   return (
     <div>
       <StyledFlex $justify="center">
@@ -18,27 +21,52 @@ const DashSideBar = () => {
       <StyledNav>
         {DASHBOARD_LINKS.map(({ SLUG, TITLE, LINK, ICON }) => {
           const isActive = pathname === LINK;
-          return (
-            <Link key={SLUG} to={LINK}>
-              <StyledLink $cg="16px" $align="center" $isActive={isActive}>
-                {ICON(isActive)}
-                <ParagraphText
-                  $fsize="14px"
-                  $lh="20px"
-                  $fw="400"
-                  $color={
-                    isActive
-                      ? 'var( --background-primary)'
-                      : 'var(--primary-text)'
-                  }
-                >
-                  {TITLE}
-                </ParagraphText>
-                {/* Active border   */}
-                {isActive && <StyledBorder />}
-              </StyledLink>
-            </Link>
-          );
+          const isLogout = SLUG === 'logout';
+          if (isLogout) {
+            return (
+              <StyledButton key={SLUG} onClick={logout}>
+                <StyledLink $cg="16px" $align="center" $isActive={isActive}>
+                  {ICON(isActive)}
+                  <ParagraphText
+                    $fsize="14px"
+                    $lh="20px"
+                    $fw="400"
+                    $color={
+                      isActive
+                        ? 'var( --background-primary)'
+                        : 'var(--primary-text)'
+                    }
+                  >
+                    {TITLE}
+                  </ParagraphText>
+                  {/* Active border   */}
+                  {isActive && <StyledBorder />}
+                </StyledLink>
+              </StyledButton>
+            );
+          } else {
+            return (
+              <Link key={SLUG} to={LINK}>
+                <StyledLink $cg="16px" $align="center" $isActive={isActive}>
+                  {ICON(isActive)}
+                  <ParagraphText
+                    $fsize="14px"
+                    $lh="20px"
+                    $fw="400"
+                    $color={
+                      isActive
+                        ? 'var( --background-primary)'
+                        : 'var(--primary-text)'
+                    }
+                  >
+                    {TITLE}
+                  </ParagraphText>
+                  {/* Active border   */}
+                  {isActive && <StyledBorder />}
+                </StyledLink>
+              </Link>
+            );
+          }
         })}
       </StyledNav>
     </div>

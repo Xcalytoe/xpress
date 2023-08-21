@@ -1,15 +1,10 @@
-import ApiHandler from './ApiHandler';
+import AxiosMock from './ApiMock';
 
 const AuthApi = {
   login: (data: any) =>
-    ApiHandler.post('/users/login', data, { credentials: 'include' }),
+    AxiosMock.onPost('/dummy_url', data, { credentials: 'include' }),
 
   register: (data: any) =>
-    ApiHandler.post('/users', data, { credentials: 'include' }),
-
-  updatepassword: (email: string, data: any) =>
-    ApiHandler.post(`/users/${email}/forget-password`, data, {
-      credentials: 'include',
-    }),
+    AxiosMock.onPost('/dummy_url', data, { credentials: 'include' }),
 };
 export default AuthApi;

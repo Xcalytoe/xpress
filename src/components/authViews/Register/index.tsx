@@ -7,15 +7,8 @@ import { StyledButton } from '../../__styles/ui-block.style';
 interface IStepsForm {}
 const RegisterForm = () => {
   const [formRegState, setFormRegState] = useState({});
-  //   const [activeStep, setActiveStep] = useState('company-info');
-  const [activeStep, setActiveStep] = useState('personal-info');
+  const [activeStep, setActiveStep] = useState('company-info');
 
-  // handle onChange
-  //   const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-  //     const name = target.name;
-  //     const value = target.value;
-  //     setFormRegState({ ...formRegState, [name]: value });
-  //   };
   const storeData = (data: IStepsForm) => {
     setFormRegState({ ...formRegState, ...data });
   };
@@ -24,17 +17,9 @@ const RegisterForm = () => {
     setActiveStep(step);
   };
 
-  //   const handleSubmit = async (data: any) => {
-  //     try {
-  //       // dispatch.authModel.login(formData);
-  //       // setActiveStep('success');
-  //       return true;
-  //     } catch (error) {}
-  //   };
   const handleReset = () => setFormRegState({});
 
   const formData = {
-    // handleSubmit,
     handleNext,
     formRegState,
     storeData,
@@ -42,7 +27,6 @@ const RegisterForm = () => {
   };
 
   // form step inputs
-
   switch (activeStep) {
     case 'company-info':
       return <Step1 {...formData} />;

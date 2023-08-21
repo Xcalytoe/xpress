@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useEffect } from 'react';
 import styled from 'styled-components';
 import DashSideBar from './DashSideBar';
 import {
@@ -7,6 +7,9 @@ import {
   StyledFlexItem,
 } from '../../components/__styles/ui-block.style';
 import DashNavBar from './DashNavBar';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 const DashboardLayout = ({
   children,
@@ -32,6 +35,19 @@ const DashboardLayout = ({
   //     window.removeEventListener('resize', handleResize);
   //   };
   // }, []); // Empty dependency array to run the effect only once on mount
+
+  //   Navigation hook
+  const navigate = useNavigate();
+
+  // Check auth status
+  const { token } = useSelector((root: RootState) => root.authModel);
+  useEffect(() => {
+    // Redirect to login if unauthenticated
+    if (typeof window !== 'undefined' && !token) {
+      navigate('/auth/login');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   return (
     <div>

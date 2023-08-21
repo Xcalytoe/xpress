@@ -1,3 +1,5 @@
+import { store } from '../redux/store';
+
 // Base64 converter
 export const convertImageToBase64 = (file: Blob) => {
   return new Promise((resolve, reject) => {
@@ -11,4 +13,8 @@ export const convertImageToBase64 = (file: Blob) => {
       reject(error);
     };
   });
+};
+
+export const logout = () => {
+  store.dispatch.authModel.setState({ token: '' });
 };

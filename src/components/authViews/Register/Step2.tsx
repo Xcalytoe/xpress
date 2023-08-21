@@ -16,22 +16,32 @@ import {
 // import PasswordInput from '../../shared/form/Password';
 // import { Link } from 'react-router-dom';
 import Spinner from '../../loaders/Spinner';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, RootState } from '../../../redux/store';
 import Success from './Success';
 import { StyledBtnCon, StyledForm, StyledLabel } from '.';
 import SelectInput from '../../shared/form/Select';
 import PasswordInput from '../../shared/form/Password';
 // import InputError from '../../shared/form/InputError';
 
+interface IData {
+  city: string;
+  confirmPassword: string;
+  email: string;
+  houseNo: string;
+  name: string;
+  password: string;
+  phone: string;
+  state: string;
+  street: string;
+}
+
 const Step2 = ({
-  handleNext,
   formRegState,
   handleReset,
 }: {
   handleReset: () => void;
   formRegState: any;
-  handleNext: (step: string) => void;
 }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const {
@@ -58,19 +68,15 @@ const Step2 = ({
   //     // eslint-disable-next-line react-hooks/exhaustive-deps
   //   }, [token]);
 
-  //   const dispatch = useDispatch<Dispatch>();
+  const dispatch = useDispatch<Dispatch>();
   const isLoading = useSelector(
-    (root: RootState) => root.loading.effects.authModel.login
+    (root: RootState) => root.loading.effects.authModel.register
   );
 
-  const onSubmit = async (data: any) => {
-    const { email, password } = data;
-    const username = email;
-    const formData = { ...formRegState, username, password };
-    console.log(formData);
+  const onSubmit = async (data: IData) => {
+    const formData = { ...formRegState, ...data };
     try {
-      // dispatch.authModel.login(formData);
-      // handleNext('success');
+      dispatch.authModel.register(formData);
       setIsSuccess(true);
     } catch (error) {}
   };

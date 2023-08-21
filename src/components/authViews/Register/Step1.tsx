@@ -56,11 +56,8 @@ const Step1 = ({
     (root: RootState) => root.loading.effects.authModel.login
   );
 
-  const onSubmit = async (data: any) => {
-    const { email, password } = data;
-    const username = email;
-    const formData = { username, password };
-    storeData(formData);
+  const onSubmit = async (data: unknown) => {
+    storeData(data);
     handleNext('personal-info');
     // dispatch.authModel.login(formData);
   };
@@ -209,7 +206,7 @@ const Step1 = ({
 export default Step1;
 
 const options = [
-  { value: 'cate 1', label: 'cate 1' },
-  { value: 'cate 2', label: 'cate 2' },
-  { value: 'cate 3', label: 'cate 3' },
+  { value: 'cate 1', label: 'Cate 1' },
+  { value: 'cate 2', label: 'Cate 2' },
+  { value: 'cate 3', label: 'Cate 3' },
 ];

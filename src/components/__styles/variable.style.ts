@@ -24,12 +24,14 @@ const variables = css`
     --shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.06);
     --shadow_2: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
 
+    --overlay: hsla(0, 0%, 42%, 0.8);
     --danger: #f00;
     --danger-bg: rgba(255, 0, 0, 0.1);
     --success: #27a713;
     --success-bg: rgba(39, 167, 19, 0.1);
     --warning: #f90;
     --warning-bg: rgba(255, 153, 0, 0.1);
+    --warning2: rgba(255, 153, 0, 0.1);
   }
 `;
 export default variables;

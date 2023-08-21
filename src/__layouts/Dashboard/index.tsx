@@ -1,8 +1,7 @@
-import { ReactElement, ReactNode, useEffect, useState } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import styled from 'styled-components';
 import DashSideBar from './DashSideBar';
 import {
-  StyledButton,
   StyledDiv,
   StyledFlex,
   StyledFlexItem,
@@ -16,23 +15,23 @@ const DashboardLayout = ({
   title: ReactNode;
   children: ReactElement;
 }) => {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   // Close mobile menu
 
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setScreenWidth(window.innerWidth);
+  //   };
 
-    // Attach the resize event listener
-    window.addEventListener('resize', handleResize);
+  //   // Attach the resize event listener
+  //   window.addEventListener('resize', handleResize);
 
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []); // Empty dependency array to run the effect only once on mount
+  //   // Clean up the event listener on component unmount
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []); // Empty dependency array to run the effect only once on mount
 
   return (
     <div>
@@ -56,10 +55,10 @@ const DashboardLayout = ({
 };
 
 export default DashboardLayout;
-const StyledBtn = styled(StyledButton)`
-  display: flex;
-  align-items: center;
-`;
+// const StyledBtn = styled(StyledButton)`
+//   display: flex;
+//   align-items: center;
+// `;
 
 const StyledAside = styled(StyledFlexItem)`
   box-shadow: var(--shadow);

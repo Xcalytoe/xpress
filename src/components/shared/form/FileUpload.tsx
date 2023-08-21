@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import UploadIcon from '../../../assets/images/upload.svg';
+import fileIcon from '../../../assets/images/fileicon.svg';
+import uploadIcon from '../../../assets/images/upload.svg';
 import InputError from './InputError';
-import { StyledDiv } from '../../__styles/ui-block.style';
+import { StyledDiv, StyledFlex } from '../../__styles/ui-block.style';
 import { ParagraphText } from '../../__styles/global.style';
 
 interface IFormInput {
@@ -18,8 +19,6 @@ interface IFormInput {
   ) => void;
   type?: string;
   value: string;
-  defaultUrl?: string;
-  profile?: boolean;
 }
 
 const FileUpload = ({
@@ -28,13 +27,11 @@ const FileUpload = ({
   placeholder,
   accept,
   onChange,
-  profile,
   errors,
   errId,
   type,
   mWidth,
   value,
-  defaultUrl,
 }: IFormInput) => {
   return (
     <>
@@ -47,34 +44,51 @@ const FileUpload = ({
         />
         <>
           <InpputText height={height} mWidth={mWidth}>
-            <ParagraphText
-              $fw="400"
-              $fsize="14px"
-              $lh="20px"
-              $color="var(--secondary-text_2)"
-            >
-              {value}
-            </ParagraphText>
-            <StyledDiv $textAlign="center">
-              <UploadIcon />
-              <ParagraphText
-                $fw="600"
-                $fsize="16px"
-                $lh="20px"
-                $color="var(--secondary-text_5)"
-                $mt="12px"
-                $mb="4px"
-              >
-                {placeholder}
-              </ParagraphText>
-              <ParagraphText
-                $fw="400"
-                $fsize="12px"
-                $lh="18px"
-                $color="var(--secondary-text_2)"
-              >
-                {type}
-              </ParagraphText>
+            <StyledDiv $textAlign="center" $mt={value ? '50px' : '0'}>
+              <StyledIcon>
+                <img src={uploadIcon} alt="Upload Icon" />
+              </StyledIcon>
+              {value && (
+                <ParagraphText
+                  $fw="400"
+                  $fsize="14px"
+                  $lh="20px"
+                  $mt="10px"
+                  $color="var(--secondary-text_2)"
+                >
+                  {value}
+                </ParagraphText>
+              )}
+              {/* For empty field  */}
+              {!value && (
+                <StyledDiv>
+                  <ParagraphText
+                    $fw="400"
+                    $fsize="12px"
+                    $ff="var(--Secondary-font)"
+                    $lh="148%"
+                    $color="var(--primary-dark)"
+                    $mt="12px"
+                    $mb="22px"
+                  >
+                    {placeholder}
+                  </ParagraphText>
+                  <StyledBadge>
+                    <img src={fileIcon} alt="file" />
+                    Choose file
+                  </StyledBadge>
+                  <ParagraphText
+                    $fw="400"
+                    $fsize="14px"
+                    $ff="var(--Secondary-font)"
+                    $lh="140%"
+                    $mt="24px"
+                    $color="var(--secondary-text_2)"
+                  >
+                    {type}
+                  </ParagraphText>
+                </StyledDiv>
+              )}
             </StyledDiv>
           </InpputText>
         </>
@@ -85,53 +99,31 @@ const FileUpload = ({
 };
 
 export default FileUpload;
-const StyledImg = styled.div<{ profile?: string; height?: string }>`
-  max-height: ${({ profile, height }) =>
-    height ? height : profile === 'true' ? '74px' : '232px'};
-  width: ${({ profile }) => profile === 'true' && '74px'};
-  margin: ${({ profile }) => profile === 'true' && 'auto'};
-  overflow-y: hidden;
-  cursor: pointer;
-  border-radius: 16px;
-  height: ${({ profile }) => profile === 'true' && '74px'};
-  position: relative;
-  div {
-    height: ${({ profile }) => profile === 'true' && '100%'};
-    width: 100%;
-  }
-  img {
-    width: 100%;
-    height: ${({ profile }) =>
-      profile === 'true' ? '100%' : 'auto'} !important;
-    border-radius: ${({ profile }) => (profile === 'true' ? '50%' : '16px')};
-    object-fit: cover;
-  }
+
+const StyledBadge = styled(StyledFlex)`
+  column-gap: 8px;
+  font-family: var(--Secondary-font);
+  color: var(--white);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  border-radius: 4px;
+  display: inline-flex;
+  padding: 4px 12px;
+  background: var(--background-primary);
 `;
-const StyledIcon = styled.div<{ profile?: string }>`
-  position: absolute !important;
-  width: 24px !important;
-  height: 24px !important;
-  svg {
-    scale: ${({ profile }) => profile === 'false' && '1.5'};
-  }
-  bottom: ${({ profile }) => (profile === 'true' ? '-2px' : '5px')};
-  right: ${({ profile }) => (profile === 'true' ? '-5px' : '5px')};
-`;
+const StyledIcon = styled.div``;
 
 const StyledLabel = styled.label`
   position: relative;
   width: 100%;
-  /* height: 78px; */
-  /* margin-top: 25px; */
 `;
 
 const InpputText = styled(StyledDiv)<{ height?: string; mWidth?: string }>`
-  border: 1px dashed var(--dash-1);
-  border-radius: 6px;
+  border: 1px dashed var(--border_2);
+  border-radius: 4px;
   min-height: ${({ height }) => (height ? height : '126px')};
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   column-gap: 8px;
   min-width: ${({ mWidth }) => (mWidth ? mWidth : '375px')};

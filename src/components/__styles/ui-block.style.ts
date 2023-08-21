@@ -15,6 +15,7 @@ export const StyledUnderline = styled.div<{
 `;
 export const StyledDiv = styled.div<{
   $m?: string;
+  $mw?: string;
   $textAlign?: string;
   $mt?: string;
   $mb?: string;
@@ -27,6 +28,7 @@ export const StyledDiv = styled.div<{
   $pr?: string;
 }>`
   text-align: ${({ $textAlign }) => $textAlign};
+  max-width: ${({ $mw }) => $mw};
   margin: ${({ $m }) => $m};
   margin-top: ${({ $mt }) => $mt};
   margin-bottom: ${({ $mb }) => $mb};
@@ -41,6 +43,7 @@ export const StyledDiv = styled.div<{
 
 export const StyledFlex = styled.div<{
   $cg?: string;
+  $p?: string;
   $rg?: string;
   $justify?: string;
   $align?: string;
@@ -54,6 +57,7 @@ export const StyledFlex = styled.div<{
   align-items: ${({ $align }) => $align};
   column-gap: ${({ $cg }) => $cg};
   row-gap: ${({ $rg }) => $rg};
+  padding: ${({ $p }) => $p};
 `;
 export const StyledFlexItem = styled(StyledDiv)<{
   $mwidth?: string;

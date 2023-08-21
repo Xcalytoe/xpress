@@ -1,44 +1,47 @@
 import styled from 'styled-components';
 // import DropdownIcon from '../../../public/assets/images/dropdown.svg';
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
-
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
+import InputError from './InputError';
 
 interface ISelect {
-  placeholder?: string;
   label?: string;
-  value?: string;
-  handleDataChange?: (value: string) => void;
+  isClearable: boolean;
+  name: string;
+  errId: string;
+  errors?: { message?: string };
+  options: {
+    value: string;
+    label: string;
+  }[];
+  onChange: (event: any) => void;
 }
 
 const SelectInput = ({
   label,
-  placeholder,
-  handleDataChange,
-  value,
+  errors,
+  options,
+  errId,
+  isClearable,
+  onChange,
+  name,
 }: ISelect) => {
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const handleOnChange = (val: string) => {
-    // save value on parent
-    handleDataChange && handleDataChange(val);
-  };
   return (
     <StyledContainer>
       {label && <StyledLabel>{label}</StyledLabel>}
       <StyledSelect>
         <Select
+          className="basic-single"
+          classNamePrefix="select"
+          name={name}
+          isClearable={isClearable}
           // defaultValue={value}
-          // onChange={handleOnChange}
+          onChange={onChange}
           options={options}
           isSearchable={false}
         />
       </StyledSelect>
+      {errors && <InputError errId={errId} message={errors?.message} />}
     </StyledContainer>
   );
 };
@@ -46,10 +49,20 @@ const SelectInput = ({
 export default SelectInput;
 
 const StyledContainer = styled.div`
-  /* margin-top: 15px;
-  margin-bottom: 15px; */
-  .ant-select-item-option-selected {
-    background-color: var(--border-2) !important;
+  .select {
+    &__control {
+      height: 48px;
+      &:hover,
+      &:focus {
+        border-color: var(--primary-text);
+      }
+    }
+    &__single-value {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: normal;
+      color: var(--primary-dark);
+    }
   }
 `;
 

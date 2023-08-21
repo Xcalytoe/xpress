@@ -94,6 +94,7 @@ export const HeadingText = styled.h2<{
 export const ParagraphText = styled.p<{
   $fsize: string;
   $fstyle?: string;
+  $ff?: string;
   $textTransform?: string;
   $fw: string;
   $lh?: string;
@@ -111,7 +112,7 @@ export const ParagraphText = styled.p<{
   $spacing?: string;
 }>`
   margin-bottom: 0;
-  font-family: var(--Primary-font);
+  font-family: ${({ $ff }) => ($ff ? $ff : 'var(--Primary-font)')};
   text-transform: ${({ $textTransform }) => $textTransform};
   letter-spacing: ${({ $spacing }) => $spacing};
   font-size: ${({ $fsize }) => $fsize};

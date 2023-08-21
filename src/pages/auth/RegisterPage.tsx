@@ -6,6 +6,7 @@ import {
 } from '../../components/__styles/ui-block.style';
 import { Link } from 'react-router-dom';
 import { ParagraphText } from '../../components/__styles/global.style';
+import RegisterForm from '../../components/authViews/Register';
 
 const RegisterPage = () => {
   const element = (
@@ -44,7 +45,7 @@ const RegisterPage = () => {
   );
   return (
     <Layout element={element}>
-      <div>RegisterPage</div>
+      <RegisterForm />
     </Layout>
   );
 };

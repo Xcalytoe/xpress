@@ -1,6 +1,48 @@
 import * as yup from 'yup';
 
-export const registerSchema = yup
+export const registerSchema1 = yup
+  .object()
+  .shape({
+    bizName: yup.string().required('Field required'),
+    bizCategory: yup.string().required('Field required'),
+    bizEmail: yup
+      .string()
+      .email('Must be a valid email')
+      .required('Please enter your email'),
+    bizPhone: yup
+      .string()
+      .required('Phone is required')
+      .test('phone', 'Invalid phone number', (value) => {
+        const phoneLength = String(value)?.length;
+        if (phoneLength === 11) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+    account: yup
+      .string()
+      .required('Account is required')
+      .test('phone', 'Invalid account number', (value) => {
+        const acctLength = value?.length;
+        if (acctLength === 10) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+    logo: yup
+      .mixed()
+      .test('structure', 'Please upload your logo', (file) => !!file),
+    // .test(
+    //   'fileSize',
+    //   'File size is too large, max file size is 2 Mb',
+    //   (file) => file?.size <= 2000000
+    // ),
+  })
+  .required();
+
+export const registerSchema2 = yup
   .object()
   .shape({
     password: yup
@@ -14,49 +56,21 @@ export const registerSchema = yup
     confirmPassword: yup
       .string()
       .required('Field is required')
-      .oneOf([yup.ref('newPassword')], 'Passwords must match'),
-    bizName: yup.string().required('Field required'),
-    bizCategory: yup.string().required('Field required'),
-    bizEmail: yup
-      .string()
-      .email('Must be a valid email')
-      .required('Please enter your email'),
-    bizPhone: yup
-      .number()
-      .required('Phone is required')
-      .test('phone', 'Invalid phone number', (value) => {
-        const phoneLength = String(value)?.length;
-        if (phoneLength === 11) {
-          return true;
-        } else {
-          return false;
-        }
-      }),
-    account: yup
-      .number()
-      .required('Account is required')
-      .test('phone', 'Invalid account number', (value) => {
-        const acctLength = String(value)?.length;
-        if (acctLength === 10) {
-          return true;
-        } else {
-          return false;
-        }
-      }),
-    houseNo: yup.string().required('Field required'),
+      .oneOf([yup.ref('password')], 'Passwords must match'),
+    houseNo: yup.string().required('Required'),
     street: yup.string().required('Field required'),
     city: yup.string().required('Field required'),
     state: yup.string().required('Field required'),
-    category: yup.string().required('Field required'),
+    name: yup.string().required('Field required'),
     email: yup
       .string()
       .email('Must be a valid email')
       .required('Please enter your email'),
     phone: yup
-      .number()
+      .string()
       .required('Phone is required')
       .test('phone', 'Invalid phone number', (value) => {
-        const phoneLength = String(value)?.length;
+        const phoneLength = value?.length;
         if (phoneLength === 11) {
           return true;
         } else {

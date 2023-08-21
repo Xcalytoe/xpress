@@ -23,6 +23,7 @@ const ErrorMsgStyle = styled(StyledFlex)`
   display: flex;
   align-items: center;
   column-gap: 2px;
+  justify-content: flex-start !important;
   span {
     font-style: normal;
     font-weight: 400;

@@ -7,18 +7,19 @@ import {
 import { Link } from 'react-router-dom';
 import { ParagraphText } from '../../components/__styles/global.style';
 import RegisterForm from '../../components/authViews/Register';
+import { StyledParagraph } from './LoginPage';
 
 const RegisterPage = () => {
   const element = (
     <StyledFlex $cg="8px" $align="center" $rg="10px" $flexW="wrap">
-      <ParagraphText
+      <StyledParagraph
         $fsize="14px"
         $lh="20px"
         $fw="400"
         $color="var(--secondary-text)"
       >
         Already have an account?
-      </ParagraphText>
+      </StyledParagraph>
 
       <Link to="/auth/login">
         <StyledButton

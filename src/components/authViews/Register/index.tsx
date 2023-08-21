@@ -51,6 +51,9 @@ export const StyledBtnCon = styled(StyledButton)`
   align-items: center;
   justify-content: center;
   column-gap: 10px;
+  @media only screen and (max-width: 375px) {
+    max-width: 115px;
+  }
 `;
 export const StyledLabel = styled.label<{ textAlign?: string }>`
   font-style: normal;
@@ -70,10 +73,7 @@ export const StyledForm = styled.form`
   padding: 40px;
   margin-top: 110px;
   background: var(--white);
-  @media only screen and (max-width: 799px) {
-    h2 {
-      font-size: 32px;
-      line-height: 40px;
-    }
+  @media only screen and (max-width: 500px) {
+    padding: 40px 15px;
   }
 `;

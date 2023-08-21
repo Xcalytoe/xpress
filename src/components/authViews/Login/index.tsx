@@ -134,10 +134,7 @@ const StyledForm = styled.form`
   margin-top: 110px;
   background: var(--white);
   border-radius: 8px;
-  /* @media only screen and (max-width: 799px) {
-    h2 {
-      font-size: 32px;
-      line-height: 40px;
-    }
-  } */
+  @media only screen and (max-width: 500px) {
+    padding: 40px 15px;
+  }
 `;

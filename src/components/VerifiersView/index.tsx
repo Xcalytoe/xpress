@@ -20,7 +20,7 @@ const VerifiersView = () => {
   const dispatch = useDispatch<Dispatch>();
   const { verifiers } = useSelector((root: RootState) => root.generalModel);
 
-  const [filtered, setFiltered] = useState<Verifiers[]>(() => [...verifiers]);
+  const [filtered, setFiltered] = useState<Verifiers[]>([]);
   const [searchTxt, setSearchTxt] = useState('');
 
   // Search Debounce
@@ -33,7 +33,7 @@ const VerifiersView = () => {
   );
   // Filter results on select
   const handleFilter = (id: string) => {
-    if (verifiers && !!id) {
+    if (!!verifiers && !!id) {
       const result = verifiers.filter((item: Verifiers) => {
         const searchId = id.toLowerCase();
         console.log(item?.first_name, searchId);
@@ -50,6 +50,11 @@ const VerifiersView = () => {
       setFiltered(verifiers);
     }
   };
+  //   update filtered state with default data
+  useEffect(() => {
+    verifiers && setFiltered(verifiers);
+  }, [verifiers]);
+
   //   Fetch verifiers if it does not exixt
   useEffect(() => {
     !verifiers && dispatch.generalModel.getVerifiers();

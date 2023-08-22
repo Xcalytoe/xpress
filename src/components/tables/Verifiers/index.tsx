@@ -3,8 +3,10 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  getPaginationRowModel,
+  getFilteredRowModel,
 } from '@tanstack/react-table';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Verifiers } from '../../../types/general';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
@@ -26,17 +28,7 @@ const VerifiersTable = () => {
   //   (root: RootState) => root.loading.effects.generalModel.getVerifiers
   // );
 
-  const [data, setData] = useState(() => [...verifiers]);
-
-  useEffect(() => {
-    verifiers && setData(verifiers.slice(0, 10));
-  }, [verifiers]);
-
-  // verifiers.slice(
-  //   options.pageIndex * options.pageSize,
-  //   (options.pageIndex + 1) * options.pageSize
-  // ),
-  // pageCount: Math.ceil(data.length / options.pageSize),
+  const [data] = useState(() => [...verifiers]);
 
   const columns = useMemo<ColumnDef<Verifiers>[]>(
     () => [
@@ -123,8 +115,9 @@ const VerifiersTable = () => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
-  console.log(table.setPageSize);
 
   return (
     <StyledContainer>

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 import {
   StyledButton,
+  StyledDiv,
   StyledFlex,
   StyledFlexItem,
 } from '../__styles/ui-block.style';
@@ -11,6 +12,7 @@ import plusIcon from '../../assets/images/plus-icon.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from '../../redux/store';
 import VerifiersTable from '../tables/Verifiers';
+import { HeadingText } from '../__styles/global.style';
 
 const VerifiersView = () => {
   const dispatch = useDispatch<Dispatch>();
@@ -25,6 +27,11 @@ const VerifiersView = () => {
   useEffect(() => {
     !verifiers && dispatch.generalModel.getVerifiers();
   }, [dispatch.generalModel, verifiers]);
+
+  //   Fetch results
+  const handlePopulate = () => {
+    dispatch.generalModel.getVerifiers();
+  };
 
   return (
     <StyledContainer>
@@ -62,7 +69,27 @@ const VerifiersView = () => {
         </StyledFlexItem>
       </StyledHeader>
       {/* Table section  */}
-      <VerifiersTable />
+      {verifiers && <VerifiersTable />}
+      {/* Empty state  */}
+      {!verifiers && (
+        <StyledDiv $p="100px 0" $textAlign="center">
+          <HeadingText
+            $fsize="24px"
+            $fw="500"
+            $pb="40px"
+            $color="var(--primary-text)"
+          >
+            Your table is empty!
+          </HeadingText>
+          <StyledButton
+            onClick={handlePopulate}
+            $fsize="20px"
+            $color="var(--background-primary)"
+          >
+            Populate
+          </StyledButton>
+        </StyledDiv>
+      )}
     </StyledContainer>
   );
 };

@@ -43,7 +43,7 @@ const Footer = ({
           Rows per page
         </ParagraphText>
         <StyledSelect value={selectValue} onChange={onChange}>
-          {[20, 30, 40, 50].map((pageSize) => {
+          {[10, 20, 30, 40, 50].map((pageSize) => {
             return (
               <option key={pageSize} value={pageSize}>
                 {pageSize}

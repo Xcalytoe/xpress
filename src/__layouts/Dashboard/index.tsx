@@ -19,22 +19,7 @@ const DashboardLayout = ({
   children: ReactElement;
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setScreenWidth(window.innerWidth);
-  //   };
-  //   // Attach the resize event listener
-  //   window.addEventListener('resize', handleResize);
-
-  //   // Clean up the event listener on component unmount
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []); // Empty dependency array to run the effect only once on mount
-
-  // console.log(screenWidth);
   //   Navigation hook
   const navigate = useNavigate();
 
@@ -113,6 +98,7 @@ const StyledAsideWeb = styled(StyledDiv)<{ $isOpen: boolean }>`
     left: 0;
     top: 0;
     width: 100%;
+    height: 100%;
     background: var(--white);
     max-width: 270px;
     padding: 40px 24px;

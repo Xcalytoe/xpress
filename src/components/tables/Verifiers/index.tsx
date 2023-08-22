@@ -4,7 +4,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Verifiers } from '../../../types/general';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
@@ -26,7 +26,17 @@ const VerifiersTable = () => {
   //   (root: RootState) => root.loading.effects.generalModel.getVerifiers
   // );
 
-  const [data] = useState(() => [...verifiers]);
+  const [data, setData] = useState(() => [...verifiers]);
+
+  useEffect(() => {
+    verifiers && setData(verifiers.slice(0, 10));
+  }, [verifiers]);
+
+  // verifiers.slice(
+  //   options.pageIndex * options.pageSize,
+  //   (options.pageIndex + 1) * options.pageSize
+  // ),
+  // pageCount: Math.ceil(data.length / options.pageSize),
 
   const columns = useMemo<ColumnDef<Verifiers>[]>(
     () => [
@@ -114,6 +124,7 @@ const VerifiersTable = () => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+  console.log(table.setPageSize);
 
   return (
     <StyledContainer>

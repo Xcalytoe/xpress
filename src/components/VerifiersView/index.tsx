@@ -14,21 +14,37 @@ import { Dispatch, RootState } from '../../redux/store';
 import VerifiersTable from '../tables/Verifiers';
 import { HeadingText } from '../__styles/global.style';
 import { Verifiers } from '../../types/general';
+import { useDebouncedEffect } from '../../hooks/useDebouncedEffect';
 
 const VerifiersView = () => {
   const dispatch = useDispatch<Dispatch>();
   const { verifiers } = useSelector((root: RootState) => root.generalModel);
 
   const [filtered, setFiltered] = useState<Verifiers[]>(() => [...verifiers]);
+  const [searchTxt, setSearchTxt] = useState('');
 
-  //   const isLoading = useSelector(
-  //     (root: RootState) => root.loading.effects.generalModel.getVerifiers
-  //   );
-
+  // Search Debounce
+  useDebouncedEffect(
+    () => {
+      handleFilter(searchTxt);
+    },
+    [searchTxt],
+    1000
+  );
   // Filter results on select
   const handleFilter = (id: string) => {
     if (verifiers && !!id) {
-      const result = verifiers.filter((item: Verifiers) => item?.status === id);
+      const result = verifiers.filter((item: Verifiers) => {
+        const searchId = id.toLowerCase();
+        console.log(item?.first_name, searchId);
+        const isValid =
+          item?.status === id ||
+          item?.first_name.toLowerCase().includes(searchId) ||
+          item?.last_name.toLowerCase().includes(searchId) ||
+          item?.location.toLowerCase().includes(searchId) ||
+          item?.phone.includes(id);
+        return isValid;
+      });
       setFiltered(result);
     } else {
       setFiltered(verifiers);
@@ -68,7 +84,7 @@ const VerifiersView = () => {
         <StyledFlexItem $grow="1" $mwidth="424px" $basis="338px">
           <StyledFlex $cg="16px" $rg="16px" $flexW="wrap" $align="center">
             <StyledFlexItem $mwidth="240px" $basis="160px" $grow="1">
-              <SearchInput />
+              <SearchInput onChange={(e) => setSearchTxt(e.target.value)} />
             </StyledFlexItem>
             <StyledBtn
               $bg="var(--background-primary) !important"

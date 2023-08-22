@@ -2,10 +2,17 @@ import React from 'react';
 import { styled } from 'styled-components';
 import searchIcon from '../../../assets/images/search-icon.svg';
 
-const SearchInput = () => {
+const SearchInput = ({
+  onChange,
+}: {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) => {
   return (
     <StyledLabel>
-      <StyledSearch placeholder="Name/Phone no / Location" />
+      <StyledSearch
+        onChange={onChange}
+        placeholder="Name/Phone no / Location"
+      />
       <StyledImg>
         <img src={searchIcon} alt="search icon" />
       </StyledImg>

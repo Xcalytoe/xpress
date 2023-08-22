@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, useEffect } from 'react';
+import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DashSideBar from './DashSideBar';
 import {
@@ -18,15 +18,13 @@ const DashboardLayout = ({
   title: ReactNode;
   children: ReactElement;
 }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
-  // Close mobile menu
 
   // useEffect(() => {
   //   const handleResize = () => {
   //     setScreenWidth(window.innerWidth);
   //   };
-
   //   // Attach the resize event listener
   //   window.addEventListener('resize', handleResize);
 
@@ -36,6 +34,7 @@ const DashboardLayout = ({
   //   };
   // }, []); // Empty dependency array to run the effect only once on mount
 
+  // console.log(screenWidth);
   //   Navigation hook
   const navigate = useNavigate();
 
@@ -55,14 +54,19 @@ const DashboardLayout = ({
         <StyledAside as="aside" $mwidth="256px" $grow="true" $basis="256px">
           <StyledAsideFlex $fdirection="row">
             {/* ASIDE WEB  */}
-            <StyledAsideWeb>
+            <StyledAsideWeb $isOpen={isMenuOpen}>
               <DashSideBar />
             </StyledAsideWeb>
+            {/* Mobile overlay  */}
+            <StyledOverlay
+              $isOpen={isMenuOpen}
+              onClick={() => setIsMenuOpen(false)}
+            />
           </StyledAsideFlex>
         </StyledAside>
 
         <StyledMain as="main" $grow="true" $basis="400px">
-          <DashNavBar title={title} />
+          <DashNavBar title={title} handleMenu={() => setIsMenuOpen(true)} />
           {children}
         </StyledMain>
       </StyledLayout>
@@ -98,10 +102,33 @@ const StyledAside = styled(StyledFlexItem)`
     padding: 0 20px;
   }
 `;
-const StyledAsideWeb = styled(StyledDiv)`
+const StyledAsideWeb = styled(StyledDiv)<{ $isOpen: boolean }>`
   width: 100%;
+  display: block !important;
+
   @media only screen and (max-width: 800px) {
-    display: none !important;
+    /* display: none !important; */
+    display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')} !important;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: var(--white);
+    max-width: 270px;
+    padding: 40px 24px;
+  }
+`;
+const StyledOverlay = styled.div<{ $isOpen: boolean }>`
+  display: none !important;
+  @media only screen and (max-width: 800px) {
+    display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')} !important;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: var(--overlay);
   }
 `;
 const StyledAsideFlex = styled(StyledFlex)``;

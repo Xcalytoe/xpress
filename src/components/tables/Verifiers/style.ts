@@ -6,6 +6,11 @@ export const StyledContainer = styled.div`
   border-bottom: 1px solid var(--border_5);
   margin-top: 32px;
   overflow-x: auto;
+  @media only screen and (max-width: 1200px) {
+    table {
+      min-width: 1000px;
+    }
+  }
 `;
 export const StyledTd = styled.td`
   text-align: left;
@@ -47,4 +52,5 @@ export const StyledTh = styled.th`
 `;
 export const StyledTable = styled.table`
   width: 100%;
+  border-collapse: collapse;
 `;

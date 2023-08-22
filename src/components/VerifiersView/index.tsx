@@ -119,6 +119,9 @@ const StyledHeader = styled(StyledFlex)`
 `;
 export const StyledContainer = styled.div`
   padding: 32px;
+  @media only screen and (max-width: 475px) {
+    padding: 32px 15px;
+  }
 `;
 
 const options = [

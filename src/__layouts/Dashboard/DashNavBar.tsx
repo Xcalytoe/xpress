@@ -6,12 +6,25 @@ import {
 import dropdownIcon from '../../assets/images/dropdown-icon.svg';
 import { styled } from 'styled-components';
 import ProfileImage from '../../components/shared/ProfileImage';
+import menuIcon from '../../assets/images/menu-icon.svg';
 import { NotificationIcon } from '../../components/__icons';
 
-const DashNavBar = ({ title }: { title: ReactNode }) => {
+const DashNavBar = ({
+  title,
+  handleMenu,
+}: {
+  title: ReactNode;
+  handleMenu: () => void;
+}) => {
   return (
     <StyledHeader $justify="space-between" $align="center">
-      {title}
+      <StyledFlex $align="center" $cg="16px">
+        {/* Mobile menu  */}
+        <StyledImg onClick={handleMenu}>
+          <img src={menuIcon} alt="Menu" />
+        </StyledImg>
+        {title}
+      </StyledFlex>
       <StyledFlexCon $cg="16px" $align="center">
         <StyledBtn>
           <NotificationIcon isActive />
@@ -26,6 +39,13 @@ const DashNavBar = ({ title }: { title: ReactNode }) => {
 };
 
 export default DashNavBar;
+const StyledImg = styled(StyledButton)`
+  display: none;
+  align-items: center;
+  @media only screen and (max-width: 800px) {
+    display: flex;
+  }
+`;
 const StyledFlexCon = styled(StyledFlex)``;
 const StyledHeader = styled(StyledFlex)`
   padding: 22px 32px;

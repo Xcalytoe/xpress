@@ -8,12 +8,13 @@ interface ISelect {
   label?: string;
   isClearable: boolean;
   name: string;
-  errId: string;
+  errId?: string;
   errors?: { message?: string };
   options: {
     value: string;
     label: string;
   }[];
+  defaultVal?: { label: string; value: string };
   onChange: (event: any) => void;
 }
 
@@ -24,6 +25,7 @@ const SelectInput = ({
   errId,
   isClearable,
   onChange,
+  defaultVal,
   name,
 }: ISelect) => {
   return (
@@ -35,13 +37,15 @@ const SelectInput = ({
           classNamePrefix="select"
           name={name}
           isClearable={isClearable}
-          // defaultValue={value}
+          defaultValue={defaultVal}
           onChange={onChange}
           options={options}
           isSearchable={false}
         />
       </StyledSelect>
-      {errors && <InputError errId={errId} message={errors?.message} />}
+      {errors && errId && (
+        <InputError errId={errId} message={errors?.message} />
+      )}
     </StyledContainer>
   );
 };

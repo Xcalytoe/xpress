@@ -18,3 +18,30 @@ export const convertImageToBase64 = (file: Blob) => {
 export const logout = () => {
   store.dispatch.authModel.setState({ token: '' });
 };
+
+// Table status formatter
+export const handleStatus = (status: string) => {
+  switch (status) {
+    case 'pending':
+      return {
+        name: 'Awaiting approval',
+        bg: 'var( --warning-bg-2)',
+        color: 'var(--warning)',
+      };
+    case 'deactivate':
+      return {
+        name: 'Deactivated',
+        bg: 'var(--danger-bg-2)',
+        color: 'var(--danger)',
+      };
+    case 'active':
+      return {
+        name: 'Active',
+        bg: 'var(--success-bg-2)',
+        color: 'var(--success)',
+      };
+
+    default:
+      return null;
+  }
+};

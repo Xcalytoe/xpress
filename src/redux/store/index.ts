@@ -13,7 +13,7 @@ const persistConfig = {
   key: 'root',
   timeout: 1200,
   storage,
-  whitelist: ['authModel', 'userModel', 'generalModel'],
+  whitelist: ['authModel', 'generalModel'],
 };
 
 export const store = init<RootModel, FullModel>({

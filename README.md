@@ -1,12 +1,15 @@
 # About App
 
-Xpress is an app that handles auth and dashboard. [Demo](https://xpress-fd.netlify.app)
+Xpress is an app that handles auth and dashboard. Built without css framework. [Demo](https://xpress-fd.netlify.app)
 
 ## Built With
 
 - [React](https://github.com/facebook/react)
 - [Typescript](https://github.com/microsoft/TypeScript)
 - [Styled-components](https://github.com/styled-components/styled-components)
+- [Rematch](https://rematchjs.org/docs/)
+- [Yup](https://www.npmjs.com/package/yup)
+- [React Hook Form](https://react-hook-form.com/)
 
 ### Requirements
 
@@ -21,4 +24,3 @@ Xpress is an app that handles auth and dashboard. [Demo](https://xpress-fd.netli
 
 - You can only use 'YARN' for this project, 'NPM' has been disabled.
 - Commit lints was used, you will not be able to commit changes if there are lint errors.
-<!-- - All tests must pass before you can push. -->

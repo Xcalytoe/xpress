@@ -7,5 +7,4 @@ export type User = {
 
 export type Token = {
   token: string;
-  userId: string;
 };

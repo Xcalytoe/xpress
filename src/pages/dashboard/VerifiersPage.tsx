@@ -6,6 +6,7 @@ import {
   ParagraphText,
 } from '../../components/__styles/global.style';
 import { styled } from 'styled-components';
+import VerifiersView from '../../components/VerifiersView';
 
 const Verifiers = () => {
   const title = (
@@ -30,7 +31,7 @@ const Verifiers = () => {
   );
   return (
     <Layout title={title}>
-      <div>Verifiers</div>
+      <VerifiersView />
     </Layout>
   );
 };

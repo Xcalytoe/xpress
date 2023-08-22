@@ -1,18 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createModel } from '@rematch/core';
 import { RootModel } from '.';
 import { AuthApi } from '../../services/apis';
-// import { AuthApi } from '../../services/apis';
 
 type AuthProp = {
   token: string;
-  isVerifyEmailModalOpen: boolean;
 };
 
 const authModel = createModel<RootModel>()({
   state: {
     token: '',
-    isVerifyEmailModalOpen: false,
   } as AuthProp,
   reducers: {
     setState(state, payload: Partial<AuthProp>) {

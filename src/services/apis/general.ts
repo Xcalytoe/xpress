@@ -1,9 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// import { AxiosResponse } from 'axios';
-// import ApiHandler from './ApiHandler';
+import ApiHandler from './ApiHandler';
 
 const GeneralApi = {
-  // getCategories: (): Promise<AxiosResponse<Category[], any>> =>
-  //   ApiHandler.get('/categories', null, {}),
+  getVerifiers: () => ApiHandler.get('/verifiers', null, {}),
 };
 export default GeneralApi;

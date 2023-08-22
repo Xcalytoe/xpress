@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createModel } from '@rematch/core';
 import { RootModel } from '.';
-// import { GeneralApi } from '../../services/apis';
+import { GeneralApi } from '../../services/apis';
 
 type GeneralProp = {
-  contryCode: string;
+  verifiers: any;
 };
 
 const generalModel = createModel<RootModel>()({
   state: {
-    contryCode: 'NG',
+    verifiers: null,
   } as GeneralProp,
   reducers: {
     setState(state, payload: Partial<GeneralProp>) {
@@ -20,15 +20,12 @@ const generalModel = createModel<RootModel>()({
     },
   },
   effects: (dispatch) => ({
-    // async getCategories() {
-    //   try {
-    //     const { data } = await GeneralApi.getCategories();
-    //     dispatch.generalModel.setState({ categories: data });
-    //   } catch (err: any) {
-    //     const errorRes = err?.response?.data?.message;
-    //     // toastHandler.error(errorRes);
-    //   }
-    // },
+    async getVerifiers() {
+      try {
+        const { data } = await GeneralApi.getVerifiers();
+        dispatch.generalModel.setState({ verifiers: data });
+      } catch (err: any) {}
+    },
   }),
 });
 

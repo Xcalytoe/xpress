@@ -6,10 +6,8 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
 } from '@tanstack/react-table';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Verifiers } from '../../../types/general';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
 import { handleStatus } from '../../../helpers';
 import {
   StyledContainer,
@@ -21,14 +19,13 @@ import {
 import CheckboxSelect, { ActionBtn } from './CheckboxSelect';
 import Footer from './Footer';
 
-const VerifiersTable = () => {
-  const { verifiers } = useSelector((root: RootState) => root.generalModel);
+const VerifiersTable = ({ filteredData }: { filteredData: Verifiers[] }) => {
+  const [data, setData] = useState<Verifiers[]>([]);
 
-  // const isLoading = useSelector(
-  //   (root: RootState) => root.loading.effects.generalModel.getVerifiers
-  // );
-
-  const [data] = useState(() => [...verifiers]);
+  // Update table state
+  useEffect(() => {
+    filteredData && setData(filteredData);
+  }, [filteredData]);
 
   const columns = useMemo<ColumnDef<Verifiers>[]>(
     () => [

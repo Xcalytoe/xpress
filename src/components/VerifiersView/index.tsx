@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import {
   StyledButton,
@@ -13,16 +13,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from '../../redux/store';
 import VerifiersTable from '../tables/Verifiers';
 import { HeadingText } from '../__styles/global.style';
+import { Verifiers } from '../../types/general';
 
 const VerifiersView = () => {
   const dispatch = useDispatch<Dispatch>();
-
   const { verifiers } = useSelector((root: RootState) => root.generalModel);
+
+  const [filtered, setFiltered] = useState<Verifiers[]>(() => [...verifiers]);
 
   //   const isLoading = useSelector(
   //     (root: RootState) => root.loading.effects.generalModel.getVerifiers
   //   );
 
+  // Filter results on select
+  const handleFilter = (id: string) => {
+    if (verifiers && !!id) {
+      const result = verifiers.filter((item: Verifiers) => item?.status === id);
+      setFiltered(result);
+    } else {
+      setFiltered(verifiers);
+    }
+  };
   //   Fetch verifiers if it does not exixt
   useEffect(() => {
     !verifiers && dispatch.generalModel.getVerifiers();
@@ -42,6 +53,7 @@ const VerifiersView = () => {
         $justify="space-between"
       >
         <StyledFlexItem $mwidth="212px" $basis="147px" $grow="1">
+          {/* TODO: Update style to fit design  */}
           <SelectInput
             isClearable={false}
             defaultVal={options[0]}
@@ -49,7 +61,7 @@ const VerifiersView = () => {
             options={options}
             onChange={(event: any) => {
               const val = event?.value;
-              console.log(val);
+              handleFilter(val);
             }}
           />
         </StyledFlexItem>
@@ -69,7 +81,7 @@ const VerifiersView = () => {
         </StyledFlexItem>
       </StyledHeader>
       {/* Table section  */}
-      {verifiers && <VerifiersTable />}
+      {verifiers && <VerifiersTable filteredData={filtered} />}
       {/* Empty state  */}
       {!verifiers && (
         <StyledDiv $p="100px 0" $textAlign="center">
@@ -126,7 +138,7 @@ export const StyledContainer = styled.div`
 
 const options = [
   { value: '', label: 'All' },
-  { value: 'active-verifiers', label: 'Active Verifiers' },
-  { value: 'pending-verifiers', label: 'Pending Verifiers' },
-  { value: 'deactivated-erifiers', label: 'Deactivated Verifiers' },
+  { value: 'active', label: 'Active Verifiers' },
+  { value: 'pending', label: 'Pending Verifiers' },
+  { value: 'deactivate', label: 'Deactivated Verifiers' },
 ];
